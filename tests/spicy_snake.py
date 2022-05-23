@@ -1,5 +1,8 @@
-def move(current_position,direction):
 
+VALID_DIRECTIONS = {"left","right","up","down"}
+
+def move(current_position,direction):
+    assert direction in VALID_DIRECTIONS
     x,y = current_position
 
     if type(x) != int or type(y) != int:

@@ -9,32 +9,51 @@
 6. Run the tests again (regression testing)
 7. Back to step 1
 
+calculate test coverage with pytest --cov
+
 
 '''
 
-from spicy_snake import move
-import pytest
+
+
+from spicy_snake import move, VALID_DIRECTIONS
+import pytest,random
 
 # tests that snake is moving in all directions
 # test random positions
-def test_move_left():
-    position = (5,5) #x,y
-    new_position = move(position,"left")
-    assert  new_position == (4,5)
 
-def test_move_right():
-    position = (5,5) #x,y
-    new_position = move(position,"right")
-    assert  new_position == (6,5)
+@pytest.mark.parametrize("position,direction,expected",[((5,5),"left",(4,5)),
 
-def test_move_down():
-    position = (5,5) #x,y
-    new_position = move(position,"down")
-    assert  new_position == (5,4)
+((5,5),"right",(6,5)), 
+((5,0),"left",(4,0)),
+((5,5),"up",(5,6)),
+((5,5),"down",(5,4)),
+((3,3),"right",(4,3))
+])
+
+ #declarators iterates functions on the go with parameters, usage for quick testing
+def test_move(position,direction,expected):
+    #checks if snake moves in all 4 directions
+    assert move(position,direction) == expected
+
+def test_move_invalid():
+    position = move(3,5)
+    with pytest.raises(Exception):
+        move(position,"dummy")
+
 
 def test_move_fraction():
-    #code is not supp to work
-    position = (3.444,5)
+    position = move(3.445,5)
     with pytest.raises(Exception):
+        move(position,"left")
+
+def test_move_random():
+    for i in range(100):
+        x = random.randint(1,10)
+        y = random.randint(1,10)
+        position = x,y
+        new_position = move(position,"left")
+        assert new_position == (x-1,y)
         
-        move(position,"down")
+
+#todo check for boundaries of playing field

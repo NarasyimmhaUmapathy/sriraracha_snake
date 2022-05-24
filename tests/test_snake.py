@@ -16,7 +16,7 @@ calculate test coverage with pytest --cov
 
 
 
-from spicy_snake import move, VALID_DIRECTIONS
+from spicy_snake.snake_moves import move, VALID_DIRECTIONS
 import pytest,random
 
 # tests that snake is moving in all directions

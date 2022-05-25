@@ -5,7 +5,7 @@ def move(current_position,direction):
     assert direction in VALID_DIRECTIONS
     x,y = current_position
 
-    if isinstance(x) != int or isinstance(y) != int:
+    if type(x) != int or type(y) != int:
         raise Exception("x and y have to be integers")
     
 

@@ -37,13 +37,13 @@ def test_move(position,direction,expected):
     assert move(position,direction) == expected
 
 def test_move_invalid():
-    position = move(3,5)
     with pytest.raises(Exception):
-        move(position,"dummy")
+
+        move((1,1),"dummy")
 
 
 def test_move_fraction():
-    position = move(3.445,5)
+    position = (3.444,5)
     with pytest.raises(Exception):
         move(position,"left")
 
@@ -51,9 +51,10 @@ def test_move_random():
     for i in range(100):
         x = random.randint(1,10)
         y = random.randint(1,10)
+        direction = random.choice(list(VALID_DIRECTIONS))
         position = x,y
-        new_position = move(position,"left")
-        assert new_position == (x-1,y)
+
+        move(position,direction)
         
 
 #todo check for boundaries of playing field
